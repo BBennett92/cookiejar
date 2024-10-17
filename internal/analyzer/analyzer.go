@@ -74,7 +74,7 @@ func AnalyzeCookie(cookie *http.Cookie, parsedURL *url.URL) CookieResult {
 		Name:     cookie.Name,
 		HttpOnly: cookie.HttpOnly,
 		Secure:   cookie.Secure,
-		SameSite: cookie.SameSite.String(),
+		SameSite: sameSiteToString(cookie.SameSite),
 	}
 
 	// Check Domain Scope
@@ -119,4 +119,20 @@ func AnalyzeCookie(cookie *http.Cookie, parsedURL *url.URL) CookieResult {
 	// Additional checks can be implemented here (e.g., size, encryption)
 
 	return result
+}
+
+// sameSiteToString converts the http.SameSite value to its string representation.
+func sameSiteToString(sameSite http.SameSite) string {
+	switch sameSite {
+	case http.SameSiteDefaultMode:
+		return "Default"
+	case http.SameSiteLaxMode:
+		return "Lax"
+	case http.SameSiteStrictMode:
+		return "Strict"
+	case http.SameSiteNoneMode:
+		return "None"
+	default:
+		return "Unknown"
+	}
 }
