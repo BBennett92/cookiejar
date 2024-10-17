@@ -1,0 +1,7 @@
+# Default configuration for CookieJar
+scan:
+  follow_redirects: true
+  timeout: "10s"
+output:
+  verbose: false
+  format: text
